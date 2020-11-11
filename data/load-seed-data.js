@@ -1,4 +1,4 @@
-const client = require('../lib/client');
+const client = require('../lib/client.js');
 // import our seed data:
 const todos = require('./todos.js');
 const usersData = require('./users.js');

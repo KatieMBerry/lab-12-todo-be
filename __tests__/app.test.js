@@ -31,30 +31,60 @@ describe('app routes', () => {
       return client.end(done);
     });
 
-    // test('returns todos', async () => {
+    test('returns just user-John todos', async () => {
 
-    //   const expectation = [
-    //     {
-    //       todo: 'go to the grocery store',
-    //       is_completed: false,
-    //     },
-    //     {
+      const expectation = [
+        {
+          id: 4,
+          todo: 'Go to the grocery store',
+          priority: 5,
+          is_completed: false,
+          owner_id: 2
+        },
+        {
+          id: 5,
+          todo: 'Pay monthly bills online',
+          priority: 10,
+          is_completed: false,
+          owner_id: 2
+        },
+        {
+          id: 6,
+          todo: 'Clean the house',
+          priority: 8,
+          is_completed: false,
+          owner_id: 2
+        }
+      ];
 
-    //       todo: 'pay monthly bills online',
-    //       is_completed: false,
-    //     },
-    //     {
-    //       todo: 'clean the house',
-    //       is_completed: false,
-    //     }
-    //   ];
+      await fakeRequest(app)
+        .post('/api/todos')
+        .send(expectation[0])
+        .set('Authorization', token)
+        .expect('Content-Type', /json/)
+        .expect(200);
 
-    //   const data = await fakeRequest(app)
-    //     .get('/todos')
-    //     .expect('Content-Type', /json/)
-    //     .expect(200);
+      await fakeRequest(app)
+        .post('/api/todos')
+        .send(expectation[1])
+        .set('Authorization', token)
+        .expect('Content-Type', /json/)
+        .expect(200);
 
-    //   expect(data.body).toEqual(expectation);
-    // });
+      await fakeRequest(app)
+        .post('/api/todos')
+        .send(expectation[2])
+        .set('Authorization', token)
+        .expect('Content-Type', /json/)
+        .expect(200);
+
+      const data = await fakeRequest(app)
+        .get('/api/todos')
+        .set('Authorization', token)
+        .expect('Content-Type', /json/)
+        .expect(200);
+
+      expect(data.body).toEqual(expectation);
+    });
   });
 });

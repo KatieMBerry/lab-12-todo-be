@@ -36,16 +36,16 @@ describe('app routes', () => {
     //   const expectation = [
     //     {
     //       todo: 'go to the grocery store',
-    //       completed: false,
+    //       is_completed: false,
     //     },
     //     {
 
     //       todo: 'pay monthly bills online',
-    //       completed: false,
+    //       is_completed: false,
     //     },
     //     {
     //       todo: 'clean the house',
-    //       completed: false,
+    //       is_completed: false,
     //     }
     //   ];
 

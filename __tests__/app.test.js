@@ -86,5 +86,51 @@ describe('app routes', () => {
 
       expect(data.body).toEqual(expectation);
     });
+
+    test('returns a newly added todo with post', async () => {
+
+      const expectation =
+      {
+        id: 7,
+        todo: 'Bathe the dog',
+        priority: 8,
+        is_completed: false,
+        owner_id: 2
+      };
+
+      const data = await fakeRequest(app)
+        .post('/api/todos/')
+        .send({
+          todo: 'Bathe the dog',
+          priority: 8,
+          is_completed: false
+        })
+        .set('Authorization', token)
+        .expect('Content-Type', /json/)
+        .expect(200);
+
+      expect(data.body).toEqual(expectation);
+    });
+
+    test('returns an updated todo with put', async () => {
+
+      const expectation =
+      {
+        id: 4,
+        todo: 'Go to the grocery store',
+        priority: 5,
+        is_completed: true,
+        owner_id: 2
+      };
+
+      const data = await fakeRequest(app)
+        .put('/api/todos/4')
+        .set('Authorization', token)
+        .expect('Content-Type', /json/)
+        .expect(200);
+
+      expect(data.body).toEqual(expectation);
+    });
+
   });
 });
